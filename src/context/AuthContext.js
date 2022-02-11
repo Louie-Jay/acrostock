@@ -1,8 +1,14 @@
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import {getFirestore, getDocs, collection} from "firebase/firestore";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCz2F-KG-qU0YkKvBsMLpzAIs50_bevAb8",
@@ -11,7 +17,7 @@ const firebaseConfig = {
   storageBucket: "react-crud-8a873.appspot.com",
   messagingSenderId: "166762420977",
   appId: "1:166762420977:web:559770bc50402984d2e750",
-  measurementId: "G-SXC3LTBG56"
+  measurementId: "G-SXC3LTBG56",
 };
 
 // Initialize Firebase
@@ -32,15 +38,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userEmail, userPassword) => {
     return signInWithEmailAndPassword(auth, userEmail, userPassword);
-  }
+  };
 
   const logout = () => {
     return signOut(auth);
-  }
+  };
 
   const newUser = (userEmail, userPassword) => {
     return createUserWithEmailAndPassword(auth, userEmail, userPassword);
-  }
+  };
 
   const getUsers = () => {
     const querySnapshot = getDocs(collection(db, "users"));
@@ -50,17 +56,16 @@ export const AuthProvider = ({ children }) => {
     //   console.log(doc.id, " => ", doc.data());
     // });
     return querySnapshot;
-  }
+  };
 
   useEffect(() => {
     const loggedInUser = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
-    })
+    });
 
     return loggedInUser;
   });
-
 
   const contexts = {
     currentUser,
@@ -68,13 +73,11 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     getUsers,
-
-  }
+  };
 
   return (
     <AuthContext.Provider value={contexts}>
       {!loading && children}
     </AuthContext.Provider>
   );
-
-}
+};

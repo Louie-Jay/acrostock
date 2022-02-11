@@ -2,6 +2,7 @@ import React from "react";
 import DropdownItems from "../../DropdownItems";
 import { Form } from "react-bootstrap";
 
+
 const BasicInformation = () => {
   return (
     <Form.Group>
@@ -31,7 +32,9 @@ const BasicInformation = () => {
               type="number"
               placeholder="enter your student number"
               min="0" // prevents negative number
-              max="5"
+              max="5" 
+              minLength="0" // doesnt apply to input type number
+              maxlength="1" // doesnt apply to input type number
             />
           </div>
         </div>
