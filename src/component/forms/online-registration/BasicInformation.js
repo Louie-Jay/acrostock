@@ -30,6 +30,8 @@ const BasicInformation = () => {
             <Form.Control
               type="number"
               placeholder="enter your student number"
+              min="0" // prevents negative number
+              max="5"
             />
           </div>
         </div>
